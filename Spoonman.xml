@@ -12,10 +12,10 @@
   <inspection_tool class="AbstractMethodOverridesConcreteMethod" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="AbstractMethodWithMissingImplementations" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="AccessToNonThreadSafeStaticFieldFromInstance" enabled="true" level="WARNING" enabled_by_default="true">
-    <option name="nonThreadSafeTypes" value="" />
     <option name="nonThreadSafeClasses">
       <value />
     </option>
+    <option name="nonThreadSafeTypes" value="" />
   </inspection_tool>
   <inspection_tool class="AccessToStaticFieldLockedOnInstance" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="AmbiguousFieldAccess" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -323,6 +323,7 @@
   <inspection_tool class="FieldCount" enabled="true" level="WARNING" enabled_by_default="true">
     <option name="m_countConstantFields" value="false" />
     <option name="m_considerStaticFinalFieldsConstant" value="false" />
+    <option name="myCountEnumConstants" value="false" />
     <option name="m_limit" value="10" />
   </inspection_tool>
   <inspection_tool class="FieldHasSetterButNoGetter" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -382,9 +383,9 @@
   <inspection_tool class="GroovyConditionalCanBeConditionalCall" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="GroovyConditionalCanBeElvis" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="GroovyConstantNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
-    <option name="m_regex" value="[A-Z\d]*" />
-    <option name="m_minLength" value="4" />
-    <option name="m_maxLength" value="32" />
+    <option name="m_regex" value="[A-Z_\d]*" />
+    <option name="m_minLength" value="3" />
+    <option name="m_maxLength" value="64" />
   </inspection_tool>
   <inspection_tool class="GroovyContinue" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="GroovyContinueOrBreakFromFinallyBlock" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -410,7 +411,7 @@
     <option name="m_maxLength" value="32" />
   </inspection_tool>
   <inspection_tool class="GroovyInstanceVariableNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
-    <option name="m_regex" value="m_[a-z][A-Za-z\d]*" />
+    <option name="m_regex" value="[a-z][A-Za-z\d]*" />
     <option name="m_minLength" value="1" />
     <option name="m_maxLength" value="32" />
   </inspection_tool>
@@ -462,7 +463,7 @@
   </inspection_tool>
   <inspection_tool class="GroovyParameterNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
     <option name="m_regex" value="[a-z][A-Za-z\d]*" />
-    <option name="m_minLength" value="4" />
+    <option name="m_minLength" value="1" />
     <option name="m_maxLength" value="32" />
   </inspection_tool>
   <inspection_tool class="GroovyPointlessArithmetic" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -559,7 +560,6 @@
     <option name="ignoreInstanceofOnLibraryClasses" value="false" />
   </inspection_tool>
   <inspection_tool class="InstanceofIncompatibleInterface" enabled="true" level="WARNING" enabled_by_default="true" />
-  <inspection_tool class="InstanceofInterfaces" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="InstanceofThis" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="InstantiationOfUtilityClass" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="IntLiteralMayBeLongLiteral" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -657,6 +657,7 @@
   <inspection_tool class="MethodCount" enabled="true" level="WARNING" enabled_by_default="true">
     <option name="m_limit" value="20" />
     <option name="ignoreGettersAndSetters" value="false" />
+    <option name="ignoreOverridingMethods" value="false" />
   </inspection_tool>
   <inspection_tool class="MethodCoupling" enabled="true" level="WARNING" enabled_by_default="true">
     <option name="m_includeJavaClasses" value="false" />
@@ -893,7 +894,6 @@
   </inspection_tool>
   <inspection_tool class="PyDocstringInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
   <inspection_tool class="PyMandatoryEncodingInspection" enabled="true" level="WARNING" enabled_by_default="true" />
-  <inspection_tool class="PyRedeclarationInspection" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="QuestionableName" enabled="true" level="WARNING" enabled_by_default="true">
     <option name="nameString" value="aa,abc,bad,bar,bar2,baz,baz1,baz2,baz3,bb,blah,bogus,bool,cc,dd,defau1t,dummy,dummy2,ee,fa1se,ff,foo,foo1,foo2,foo3,foobar,four,fred,fred1,fred2,gg,hh,hello,hello1,hello2,hello3,ii,nu11,one,silly,silly2,string,two,that,then,three,whi1e,var" />
   </inspection_tool>
@@ -962,18 +962,32 @@
       <constraint name="Expected" script="&quot;&quot;" regexp=".+" within="" contains="" />
       <constraint name="Actual" script="&quot;&quot;" regexp=".+" within="" contains="" />
     </replaceConfiguration>
-    <replaceConfiguration name="Avoid JUnit's assertTrue" text="$MethodCall$($Expected$)" recursive="false" caseInsensitive="false" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="assertThat($Expected$).isTrue">
+    <replaceConfiguration name="Avoid JUnit's assertTrue" text="$MethodCall$($Expected$)" recursive="false" caseInsensitive="false" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="assertThat($Expected$).isTrue()">
       <constraint name="Instance" script="&quot;&quot;" minCount="0" within="" contains="" />
       <constraint name="MethodCall" script="&quot;&quot;" regexp="assertTrue" within="" contains="" />
       <constraint name="Parameter" minCount="0" maxCount="2147483647" within="" contains="" />
       <constraint name="Expected" script="&quot;&quot;" within="" contains="" />
       <constraint name="Actual" within="" contains="" />
+      <constraint name="__context__" script="&quot;&quot;" within="" contains="" />
     </replaceConfiguration>
-    <replaceConfiguration name="Avoid JUnit's assertFalse" text="$MethodCall$($Expected$)" recursive="false" caseInsensitive="false" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="assertThat($Expected$).isFalse">
+    <replaceConfiguration name="Avoid JUnit's assertFalse" text="$MethodCall$($Expected$)" recursive="false" caseInsensitive="false" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="assertThat($Expected$).isFalse()">
       <constraint name="Instance" script="&quot;&quot;" minCount="0" within="" contains="" />
       <constraint name="MethodCall" script="&quot;&quot;" regexp="assertFalse" within="" contains="" />
       <constraint name="Parameter" minCount="0" maxCount="2147483647" within="" contains="" />
       <constraint name="Expected" script="&quot;&quot;" within="" contains="" />
+    </replaceConfiguration>
+    <replaceConfiguration name="Fix morons equals assertions" text="assertThat($expected$.equals($actual$)).isTrue()" recursive="false" caseInsensitive="true" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="assertThat($actual$).isEqualTo($expected$)">
+      <constraint name="actual" script="&quot;&quot;" within="" contains="" />
+      <constraint name="expected" script="&quot;&quot;" within="" contains="" />
+      <constraint name="__context__" script="&quot;&quot;" within="" contains="" />
+    </replaceConfiguration>
+    <replaceConfiguration name="Fix morons length assertions" text="assertThat($actual$.length).isEqualTo($expectedSize$);" recursive="false" caseInsensitive="true" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="assertThat($actual$).hasSize($expectedSize$);">
+      <constraint name="actual" within="" contains="" />
+      <constraint name="expected" within="" contains="" />
+      <constraint name="expectedSize" within="" contains="" />
+    </replaceConfiguration>
+    <replaceConfiguration name="Fix morons equals empty assertions" text="assertThat($actual$).isEqualTo(&quot;&quot;);" recursive="false" caseInsensitive="true" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="assertThat($actual$).isEmpty();">
+      <constraint name="actual" within="" contains="" />
     </replaceConfiguration>
   </inspection_tool>
   <inspection_tool class="SafeLock" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1119,7 +1133,7 @@
   <inspection_tool class="TestMethodInProductCode" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="TestMethodIsPublicVoidNoArg" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="TestMethodWithoutAssertion" enabled="true" level="ERROR" enabled_by_default="true">
-    <option name="assertionMethods" value="org.junit.Assert,assert.*|fail.*,junit.framework.Assert,assert.*|fail.*,org.mockito.Mockito,verify.*,org.junit.rules.ExpectedException,expect.*,org.assertj.core.api.Assertions,assertThat.*" />
+    <option name="assertionMethods" value="org.junit.Assert,assert.*|fail.*,junit.framework.Assert,assert.*|fail.*,org.mockito.Mockito,verify.*,org.junit.rules.ExpectedException,expect.*,org.assertj.core.api.Assertions,assertThat.*,org.fest.assertions.api.Assertions,assertThat.*" />
     <option name="assertKeywordIsAssertion" value="false" />
   </inspection_tool>
   <inspection_tool class="TestOnlyProblems" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1259,10 +1273,10 @@
   </inspection_tool>
   <inspection_tool class="UtilityClassWithPublicConstructor" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="UtilityClassWithoutPrivateConstructor" enabled="true" level="WARNING" enabled_by_default="true">
-    <option name="ignoreClassesWithOnlyMain" value="false" />
     <option name="ignorableAnnotations">
       <value />
     </option>
+    <option name="ignoreClassesWithOnlyMain" value="false" />
   </inspection_tool>
   <inspection_tool class="VarargParameter" enabled="true" level="WARNING" enabled_by_default="true" />
   <inspection_tool class="VariableNotUsedInsideIf" enabled="true" level="WARNING" enabled_by_default="true" />
